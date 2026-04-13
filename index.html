@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teck See Plastic Group of Companies</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ─── TOP BAR ─── -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-brand">
+      <div class="topbar-logo">
+        <svg viewBox="0 0 32 32" fill="none">
+          <rect x="3" y="7" width="26" height="18" rx="2" stroke="white" stroke-width="2"/>
+          <path d="M3 13h26M10 7v18M22 7v18" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div>
+        <div class="topbar-co">TECK SEE PLASTIC GROUP OF COMPANIES</div>
+        <div class="topbar-sub">A Subsidiary of Oriental Holdings Berhad (SSM: 5286-U)</div>
+      </div>
+    </div>
+    <div class="topbar-contacts">
+      <div class="topbar-contact">
+        <div class="topbar-contact-icon">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="topbar-contact-label">Phone Number</div>
+          <div class="topbar-contact-value">+603 5191 3722</div>
+        </div>
+      </div>
+      <div class="topbar-contact">
+        <div class="topbar-contact-icon">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="topbar-contact-label">Email Address</div>
+          <div class="topbar-contact-value">info@tecksee.com.my</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── NAV BAR ─── -->
+<nav id="main-nav">
+  <div class="nav-inner" id="nav-inner">
+    <div class="nav-item">
+      <a href="index.html" class="nav-link active">Home</a>
+    </div>
+    <div class="nav-item">
+      <a href="about.html" class="nav-link">About Us <span class="caret">▾</span></a>
+      <div class="dropdown-menu">
+        <a href="about.html">Corporate Profile</a>
+        <a href="foreword.html">Foreword</a>
+        <a href="structure.html">Group Structure</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="subsidiaries.html" class="nav-link">Business Segments <span class="caret">▾</span></a>
+      <div class="dropdown-menu">
+        <a href="subsidiaries.html">All Subsidiaries</a>
+        <a href="ccsb/">CCSB — Compounding & Colouring</a>
+        <a href="lipro-mold/">Lipro Mold Engineering</a>
+        <a href="oriental-nichinan/">Oriental Nichinan Design</a>
+        <a href="kasai-teck-see/">Kasai Teck See</a>
+        <a href="at-ts/">AT-TS Marketing</a>
+        <a href="dragon-frontier/">Dragon Frontier</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="services.html" class="nav-link">Services</a>
+    </div>
+    <div class="nav-item">
+      <a href="awards.html" class="nav-link">Awards <span class="caret">▾</span></a>
+      <div class="dropdown-menu">
+        <a href="awards.html">Certifications</a>
+        <a href="awards.html#achievements">Achievements</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="contact.html" class="nav-link">Contact Information</a>
+    </div>
+  </div>
+  <div class="nav-toggle" id="nav-toggle" onclick="toggleNav()">&#9776;</div>
+</nav>
+
+<!-- ─── HERO SPLIT SLIDER ─── -->
+<div class="hero">
+
+  <!-- Left — TSP Group identity -->
+  <div class="hero-left">
+    <div class="hero-left-bg"></div>
+    <div class="hero-left-overlay"></div>
+    <div class="hero-left-accent"></div>
+    <div class="hero-left-content">
+      <div class="hero-eyebrow">
+        <span style="width:5px;height:5px;border-radius:50%;background:#5bb8ff;display:inline-block;"></span>
+        Est. 5 June 1984 &nbsp;·&nbsp; Shah Alam, Selangor
+      </div>
+      <h1>Teck See Plastic<br /><em>Group of Companies</em></h1>
+      <p>A world class one-stop plastic injection contract manufacturer — serving automotive, electronics, home appliances and industrial sectors across Malaysia and the Asia-Pacific region since 1984.</p>
+      <div class="hero-btns">
+        <a href="about.html" class="btn-primary">About Us</a>
+        <a href="contact.html" class="btn-outline">Contact Us</a>
+      </div>
+      <div class="hero-dots" id="hero-dots">
+        <div class="hero-dot active" onclick="goToSlide(0)"></div>
+        <div class="hero-dot" onclick="goToSlide(1)"></div>
+        <div class="hero-dot" onclick="goToSlide(2)"></div>
+        <div class="hero-dot" onclick="goToSlide(3)"></div>
+        <div class="hero-dot" onclick="goToSlide(4)"></div>
+        <div class="hero-dot" onclick="goToSlide(5)"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right — Subsidiary slider -->
+  <div class="hero-right">
+    <div class="hero-slides" id="hero-slides">
+
+      <div class="hero-slide active slide-ccsb" onclick="window.location='ccsb/'">
+        <div class="hero-slide-overlay"></div>
+        <div class="hero-slide-content">
+          <div class="hero-slide-category">Compounding &amp; Colouring</div>
+          <div class="hero-slide-name">CCSB</div>
+          <div class="hero-slide-desc">In-house plastic resin compounding and colour development for the group and external customers.</div>
+          <a href="ccsb/" class="hero-slide-link">View Profile &rarr;</a>
+        </div>
+      </div>
+
+      <div class="hero-slide slide-lipro" onclick="window.location='lipro-mold/'">
+        <div class="hero-slide-overlay"></div>
+        <div class="hero-slide-content">
+          <div class="hero-slide-category">Mould Engineering</div>
+          <div class="hero-slide-name">Lipro Mold Engineering</div>
+          <div class="hero-slide-desc">Precision mould design and manufacturing for automotive and electronics applications.</div>
+          <a href="lipro-mold/" class="hero-slide-link">View Profile &rarr;</a>
+        </div>
+      </div>
+
+      <div class="hero-slide slide-on" onclick="window.location='oriental-nichinan/'">
+        <div class="hero-slide-overlay"></div>
+        <div class="hero-slide-content">
+          <div class="hero-slide-category">Design &amp; Engineering</div>
+          <div class="hero-slide-name">Oriental Nichinan</div>
+          <div class="hero-slide-desc">Product design, engineering analysis and prototyping — concept to production-ready.</div>
+          <a href="oriental-nichinan/" class="hero-slide-link">View Profile &rarr;</a>
+        </div>
+      </div>
+
+      <div class="hero-slide slide-kasai" onclick="window.location='kasai-teck-see/'">
+        <div class="hero-slide-overlay"></div>
+        <div class="hero-slide-content">
+          <div class="hero-slide-category">Automotive Joint Venture</div>
+          <div class="hero-slide-name">Kasai Teck See</div>
+          <div class="hero-slide-desc">Joint venture with Kasai Kogyo Japan — automotive interior plastic parts for OEM customers.</div>
+          <a href="kasai-teck-see/" class="hero-slide-link">View Profile &rarr;</a>
+        </div>
+      </div>
+
+      <div class="hero-slide slide-atts" onclick="window.location='at-ts/'">
+        <div class="hero-slide-overlay"></div>
+        <div class="hero-slide-content">
+          <div class="hero-slide-category">Marketing &amp; Distribution</div>
+          <div class="hero-slide-name">AT-TS Marketing</div>
+          <div class="hero-slide-desc">Commercial and marketing arm — distribution and customer relationship management.</div>
+          <a href="at-ts/" class="hero-slide-link">View Profile &rarr;</a>
+        </div>
+      </div>
+
+      <div class="hero-slide slide-dragon" onclick="window.location='dragon-frontier/'">
+        <div class="hero-slide-overlay"></div>
+        <div class="hero-slide-content">
+          <div class="hero-slide-category">Manufacturing</div>
+          <div class="hero-slide-name">Dragon Frontier</div>
+          <div class="hero-slide-desc">Plastic injection moulding operations supporting the group's manufacturing capacity.</div>
+          <a href="dragon-frontier/" class="hero-slide-link">View Profile &rarr;</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- ─── STATS BAR ─── -->
+<div class="stats-bar">
+  <div class="stats-bar-inner">
+    <div class="stat-item">
+      <div class="stat-num">40<span>+</span></div>
+      <div class="stat-label">Years in Operation</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">6</div>
+      <div class="stat-label">Group Companies</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">8</div>
+      <div class="stat-label">Export Markets</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">4</div>
+      <div class="stat-label">ISO Certifications</div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── ABOUT INTRO ─── -->
+<div class="section">
+  <div class="container">
+    <div class="two-col" style="align-items:center;">
+      <div>
+        <p class="s-label">Who We Are</p>
+        <h2 class="s-title">A Complete One-Stop<br />Manufacturing Solution</h2>
+        <div class="section-divider" style="margin:16px 0 20px;"></div>
+        <p style="font-size:14px;color:var(--muted);line-height:1.85;margin-bottom:16px;">Since 1984, Teck See Plastic has grown to become a leading plastic injection contract manufacturer — offering a comprehensive range of services from design and prototyping through to moulding, assembly and marketing, serving industries across Malaysia and the Asia-Pacific region.</p>
+        <p style="font-size:14px;color:var(--muted);line-height:1.85;margin-bottom:28px;">As a wholly owned subsidiary of Oriental Holdings Berhad, TSP operates six integrated companies, each specialising in a distinct stage of the plastic manufacturing value chain — delivering full accountability under one group.</p>
+        <a href="about.html" class="btn-primary">Read More</a>
+      </div>
+      <div class="fact-table">
+        <div class="fact-row"><span class="fact-key">Established</span><span class="fact-val">5 June 1984</span></div>
+        <div class="fact-row"><span class="fact-key">Headquarters</span><span class="fact-val">Shah Alam, Selangor</span></div>
+        <div class="fact-row"><span class="fact-key">Parent Company</span><span class="fact-val">Oriental Holdings Berhad</span></div>
+        <div class="fact-row"><span class="fact-key">Certifications</span><span class="fact-val">IATF 16949 · ISO 9001 · ISO 14001 · QS 9000</span></div>
+        <div class="fact-row"><span class="fact-key">Regional Presence</span><span class="fact-val">Malaysia · China · Indonesia · Thailand</span></div>
+        <div class="fact-row"><span class="fact-key">Managing Director</span><span class="fact-val">Albert Lim How Ghee</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── BUSINESS SEGMENTS ─── -->
+<div class="section surface">
+  <div class="container">
+    <div class="section-header">
+      <p class="s-label">Business Segments</p>
+      <h2 class="s-title">Our Group Companies</h2>
+      <div class="section-divider"></div>
+      <p class="s-desc" style="margin-top:16px;">Each subsidiary specialises in a distinct part of the manufacturing value chain — together delivering a true one-stop service.</p>
+    </div>
+    <div class="sub-grid">
+      <a href="ccsb/" class="sub-card">
+        <div class="sub-card-tag"><span class="tag blue">Compounding</span></div>
+        <div class="sub-card-name">CCSB</div>
+        <div class="sub-card-desc">Compounding &amp; Colouring Sdn Bhd — PP, ABS and PE compounds, masterbatches and colour matching.</div>
+        <div class="sub-card-link">View Profile &rarr;</div>
+      </a>
+      <a href="lipro-mold/" class="sub-card">
+        <div class="sub-card-tag"><span class="tag blue">Tooling</span></div>
+        <div class="sub-card-name">Lipro Mold Engineering</div>
+        <div class="sub-card-desc">Precision mould design and manufacturing for automotive and electronics applications.</div>
+        <div class="sub-card-link">View Profile &rarr;</div>
+      </a>
+      <a href="oriental-nichinan/" class="sub-card">
+        <div class="sub-card-tag"><span class="tag blue">Design</span></div>
+        <div class="sub-card-name">Oriental Nichinan</div>
+        <div class="sub-card-desc">Product design, engineering analysis and prototyping from concept to production-ready.</div>
+        <div class="sub-card-link">View Profile &rarr;</div>
+      </a>
+      <a href="kasai-teck-see/" class="sub-card">
+        <div class="sub-card-tag"><span class="tag blue">Automotive JV</span></div>
+        <div class="sub-card-name">Kasai Teck See</div>
+        <div class="sub-card-desc">Joint venture with Kasai Kogyo Japan. Automotive interior plastic parts for OEM customers.</div>
+        <div class="sub-card-link">View Profile &rarr;</div>
+      </a>
+      <a href="at-ts/" class="sub-card">
+        <div class="sub-card-tag"><span class="tag blue">Marketing</span></div>
+        <div class="sub-card-name">AT-TS Marketing</div>
+        <div class="sub-card-desc">Commercial and marketing arm — distribution and customer relationship management.</div>
+        <div class="sub-card-link">View Profile &rarr;</div>
+      </a>
+      <a href="subsidiaries.html" class="sub-card dark">
+        <div class="sub-card-name" style="margin-top:8px;">View All Subsidiaries</div>
+        <div class="sub-card-desc">Full profiles for all group companies including Dragon Frontier and complete group structure.</div>
+        <div class="sub-card-link">See Full Structure &rarr;</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ─── INDUSTRIES ─── -->
+<div class="section">
+  <div class="container">
+    <div class="section-header">
+      <p class="s-label">Industries Served</p>
+      <h2 class="s-title">Who We Manufacture For</h2>
+      <div class="section-divider"></div>
+      <p class="s-desc" style="margin-top:16px;">Precision plastic components and assemblies trusted by global brands across six industries.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden;">
+      <div style="padding:24px;background:var(--bg);">
+        <div style="font-size:13px;font-weight:800;color:var(--navy);margin-bottom:6px;">Automotive</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.65;">Bumpers, door trims, grilles, interior and exterior components for leading automotive manufacturers.</div>
+      </div>
+      <div style="padding:24px;background:var(--bg);">
+        <div style="font-size:13px;font-weight:800;color:var(--navy);margin-bottom:6px;">Motorcycle</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.65;">Plastic body panels and components. A core long-standing market for the group.</div>
+      </div>
+      <div style="padding:24px;background:var(--bg);">
+        <div style="font-size:13px;font-weight:800;color:var(--navy);margin-bottom:6px;">Computer &amp; Office Equipment</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.65;">Housings and plastic components for computer and office equipment manufacturers.</div>
+      </div>
+      <div style="padding:24px;background:var(--bg);">
+        <div style="font-size:13px;font-weight:800;color:var(--navy);margin-bottom:6px;">Audio Visual</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.65;">AV equipment housings and components including flame-retardant grades.</div>
+      </div>
+      <div style="padding:24px;background:var(--bg);">
+        <div style="font-size:13px;font-weight:800;color:var(--navy);margin-bottom:6px;">Home Appliances</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.65;">Plastic parts and sub-assemblies for major home appliance manufacturers.</div>
+      </div>
+      <div style="padding:24px;background:var(--bg);">
+        <div style="font-size:13px;font-weight:800;color:var(--navy);margin-bottom:6px;">Electrical &amp; Electronics</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.65;">Components for electrical devices and electronics across local and export markets.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand-row">
+        <div class="footer-logo-icon">
+          <svg viewBox="0 0 32 32" fill="none"><rect x="3" y="7" width="26" height="18" rx="2" stroke="white" stroke-width="2"/><path d="M3 13h26M10 7v18M22 7v18" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div>
+          <div class="footer-co">Teck See Plastic Group of Companies</div>
+          <div class="footer-sub">A Subsidiary of Oriental Holdings Berhad</div>
+        </div>
+      </div>
+      <p class="footer-desc">A world class one-stop plastic injection manufacturing group. Est. 1984. Serving automotive, electronics, home appliances and industrial sectors across Malaysia and Asia-Pacific.</p>
+    </div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <div class="footer-col-hd">Company</div>
+        <a href="about.html">Corporate Profile</a>
+        <a href="foreword.html">Foreword</a>
+        <a href="structure.html">Group Structure</a>
+        <a href="awards.html">Awards</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-hd">Subsidiaries</div>
+        <a href="ccsb/">CCSB</a>
+        <a href="lipro-mold/">Lipro Mold</a>
+        <a href="oriental-nichinan/">Oriental Nichinan</a>
+        <a href="kasai-teck-see/">Kasai Teck See</a>
+        <a href="at-ts/">AT-TS Marketing</a>
+        <a href="dragon-frontier/">Dragon Frontier</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-hd">Group</div>
+        <a href="https://www.orientalholdings.com.my" target="_blank">Oriental Holdings Berhad</a>
+        <a href="https://tecksee.com.my" target="_blank">tecksee.com.my</a>
+        <a href="services.html">Our Services</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2025 Teck See Plastic Sdn Bhd. All rights reserved.</span>
+    <span>Lot 4, Jalan Pasak 15/8, Shah Alam, 40200 Selangor &nbsp;&middot;&nbsp; tecksee.com.my</span>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>
