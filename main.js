@@ -1,34 +1,32 @@
 // ─── HERO SLIDER ───
 let currentSlide = 0;
-const totalSlides = 6;
+const totalSlides = 7;
 let sliderInterval;
 
 function goToSlide(index) {
   const slides = document.querySelectorAll('.hero-slide');
-  const dots   = document.querySelectorAll('.hero-dot');
-
   slides[currentSlide].classList.remove('active');
-  dots[currentSlide].classList.remove('active');
-
   currentSlide = index;
-
   slides[currentSlide].classList.add('active');
-  dots[currentSlide].classList.add('active');
 }
 
 function nextSlide() {
   goToSlide((currentSlide + 1) % totalSlides);
 }
 
-function startSlider() {
-  sliderInterval = setInterval(nextSlide, 4000);
+function prevSlide() {
+  goToSlide((currentSlide - 1 + totalSlides) % totalSlides);
 }
 
-// Pause on hover
-const heroRight = document.querySelector('.hero-right');
-if (heroRight) {
-  heroRight.addEventListener('mouseenter', () => clearInterval(sliderInterval));
-  heroRight.addEventListener('mouseleave', startSlider);
+function startSlider() {
+  sliderInterval = setInterval(nextSlide, 4500);
+}
+
+// Pause on hover over hero
+const hero = document.querySelector('.hero');
+if (hero) {
+  hero.addEventListener('mouseenter', () => clearInterval(sliderInterval));
+  hero.addEventListener('mouseleave', startSlider);
 }
 
 startSlider();
@@ -38,12 +36,9 @@ function toggleNav() {
   document.getElementById('main-nav').classList.toggle('nav-mobile-open');
 }
 
-// Close mobile nav on outside click
 document.addEventListener('click', (e) => {
   const nav = document.getElementById('main-nav');
   if (nav && nav.classList.contains('nav-mobile-open')) {
-    if (!nav.contains(e.target)) {
-      nav.classList.remove('nav-mobile-open');
-    }
+    if (!nav.contains(e.target)) nav.classList.remove('nav-mobile-open');
   }
 });

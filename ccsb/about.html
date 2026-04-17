@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About CCSB | Compounding &amp; Colouring Sdn Bhd</title>
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    /* ── Org Chart ── */
+    .org { display: flex; flex-direction: column; align-items: center; }
+    .org-vline { width: 2px; height: 28px; background: var(--border); flex-shrink: 0; }
+    .org-node { padding: 14px 40px; text-align: center; min-width: 300px; }
+    .org-node--root { background: var(--navy); }
+    .org-node--main { background: var(--accent); }
+    .org-node--sub  { background: #1254a0; }
+    .org-node-role  { font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 4px; }
+    .org-node-name  { font-size: 14px; font-weight: 800; color: #fff; line-height: 1.3; }
+    .org-node-dept  { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 3px; }
+
+    /* Horizontal spread connector */
+    .org-spread { width: 100%; display: flex; flex-direction: column; align-items: center; }
+    .org-hbar-wrap { width: 100%; position: relative; height: 2px; margin-bottom: 0; }
+    .org-hbar { position: absolute; top: 0; left: calc(100% / 14); right: calc(100% / 14); height: 2px; background: var(--border); }
+
+    /* Dept cards row */
+    .org-dept-row { display: flex; width: 100%; gap: 8px; }
+    .org-dept-col { flex: 1; display: flex; flex-direction: column; align-items: center; }
+    .org-dept-drop { width: 2px; height: 24px; background: var(--border); flex-shrink: 0; }
+    .org-card { width: 100%; border: 1px solid var(--border); padding: 14px 8px; text-align: center; background: #fff; }
+    .org-card-dept { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+    .org-card-name { font-size: 12px; font-weight: 800; color: var(--navy); line-height: 1.3; }
+
+    @media (max-width: 900px) {
+      .org-node { min-width: 0; padding: 12px 20px; width: 100%; }
+      .org-dept-row { flex-wrap: wrap; gap: 8px; }
+      .org-dept-col { flex: 0 0 calc(50% - 4px); }
+      .org-hbar, .org-dept-drop { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-brand">
+      <div class="topbar-logo">
+        <svg viewBox="0 0 32 32" fill="none">
+          <rect x="3" y="7" width="26" height="18" rx="0" stroke="white" stroke-width="2"/>
+          <path d="M3 13h26M10 7v18M22 7v18" stroke="white" stroke-width="1.5" stroke-linecap="square"/>
+        </svg>
+      </div>
+      <div>
+        <div class="topbar-co">Compounding &amp; Colouring Sdn Bhd (CCSB)</div>
+        <div class="topbar-sub">A Subsidiary of Teck See Plastic Group | Oriental Holdings Berhad</div>
+      </div>
+    </div>
+    <div class="topbar-contacts">
+      <div class="topbar-contact">
+        <div class="topbar-contact-icon">
+          <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="square" stroke-linejoin="miter" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+        </div>
+        <div>
+          <div class="topbar-contact-label">CCSB Direct Line</div>
+          <div class="topbar-contact-value">+603-8925 4272</div>
+        </div>
+      </div>
+      <div class="topbar-contact">
+        <div class="topbar-contact-icon">
+          <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="square" stroke-linejoin="miter" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        </div>
+        <div>
+          <div class="topbar-contact-label">Email</div>
+          <div class="topbar-contact-value">aminhusni@ccsboh.com.my</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NAV BAR -->
+<nav id="main-nav">
+  <div class="nav-inner" id="nav-inner">
+    <div class="nav-item"><a href="../index.html" class="nav-link nav-back">← TSP Group</a></div>
+    <div class="nav-sep"></div>
+    <div class="nav-item"><a href="index.html" class="nav-link">Home</a></div>
+    <div class="nav-item"><a href="about.html" class="nav-link active">About</a></div>
+    <div class="nav-item"><a href="history.html" class="nav-link">History</a></div>
+    <div class="nav-item"><a href="products.html" class="nav-link">Products</a></div>
+    <div class="nav-item"><a href="machinery.html" class="nav-link">Machinery</a></div>
+    <div class="nav-item"><a href="quality.html" class="nav-link">Quality</a></div>
+    <div class="nav-item"><a href="contact.html" class="nav-link">Contact</a></div>
+  </div>
+  <div class="nav-toggle" id="nav-toggle" onclick="toggleNav()">&#9776;</div>
+</nav>
+
+<!-- PAGE BANNER -->
+<div class="page-banner">
+  <div class="page-banner-inner">
+    <div class="page-banner-label">CCSB — Compounding &amp; Colouring Sdn Bhd</div>
+    <h1>About CCSB</h1>
+    <p class="page-banner-desc">Company profile, mission, management structure and our full company fact sheet.</p>
+  </div>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <div class="breadcrumb-inner">
+    <a href="../index.html">TSP Group</a>
+    <span class="breadcrumb-sep">/</span>
+    <a href="index.html">CCSB</a>
+    <span class="breadcrumb-sep">/</span>
+    <span class="breadcrumb-cur">About</span>
+  </div>
+</div>
+
+<!-- COMPANY OVERVIEW -->
+<div class="section">
+  <div class="container">
+    <div class="two-col wide">
+      <div>
+        <div class="section-label">Company Overview</div>
+        <h2 class="section-title">Compounding &amp; Colouring<br />Sdn Bhd (CCSB)</h2>
+        <div class="section-rule"></div>
+        <p class="section-desc">Established in April 1994 as a subsidiary of Teck See Plastic Group under Oriental Holdings Berhad, CCSB was set up with technical assistance from Mitsubishi Chemical / Japan Polychem Corporation for the Proton project.</p>
+        <p style="font-size:14px;color:var(--muted);line-height:1.8;margin-top:16px;">With 90% of its product range manufactured from polypropylene (PP), CCSB supplies precision-formulated compounds across interior, exterior, HVAC and engine parts. The company's top three products are trim parts, bumper parts and door trims — supplying directly to Perodua, Proton and Toyota platforms.</p>
+        <div style="margin-top:28px;padding:22px 24px;background:var(--navy);border-left:4px solid var(--accent);">
+          <div style="font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:8px;">Mission</div>
+          <div style="font-size:14px;font-weight:600;color:rgba(255,255,255,0.85);line-height:1.75;">"To be a global manufacturing company, where contribution towards INNOVATION and excellent in quality, on time cost, flexibility, engineering and customer service is our priority."</div>
+        </div>
+      </div>
+      <div>
+        <div class="fact-table">
+          <div class="fact-row"><span class="fact-key">Company</span><span class="fact-val">Compounding &amp; Colouring Sdn Bhd</span></div>
+          <div class="fact-row"><span class="fact-key">Short Name</span><span class="fact-val">CCSB</span></div>
+          <div class="fact-row"><span class="fact-key">Established</span><span class="fact-val">April 1994</span></div>
+          <div class="fact-row"><span class="fact-key">Parent</span><span class="fact-val">Teck See Plastic Group / Oriental Holdings Berhad</span></div>
+          <div class="fact-row"><span class="fact-key">Paid-Up Capital</span><span class="fact-val">RM 300,000</span></div>
+          <div class="fact-row"><span class="fact-key">Employees</span><span class="fact-val">78</span></div>
+          <div class="fact-row"><span class="fact-key">Production</span><span class="fact-val">12,800 MT per year</span></div>
+          <div class="fact-row"><span class="fact-key">Land / Build-Up</span><span class="fact-val">80,000 sqft / 40,000 sqft</span></div>
+          <div class="fact-row"><span class="fact-key">Certification</span><span class="fact-val">IATF 16949:2016 &nbsp;|&nbsp; ISO 9001:2015</span></div>
+          <div class="fact-row"><span class="fact-key">Address</span><span class="fact-val">Lot 3, Jalan P/10, Kawasan Perusahaan, Seksyen 10, 43650 Bandar Baru Bangi, Selangor</span></div>
+          <div class="fact-row"><span class="fact-key">Tel</span><span class="fact-val">+603-8925 4272</span></div>
+          <div class="fact-row"><span class="fact-key">Fax</span><span class="fact-val">+603-8926 1507</span></div>
+          <div class="fact-row"><span class="fact-key">Email</span><span class="fact-val">aminhusni@ccsboh.com.my</span></div>
+          <div class="fact-row"><span class="fact-key">Contact</span><span class="fact-val">Mr. Mohd Amin &nbsp;+6012-384 2921</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ORG CHART -->
+<div class="section surface">
+  <div class="container">
+    <div class="section-label">Organisation</div>
+    <h2 class="section-title">Management Structure</h2>
+    <div class="section-rule" style="margin-bottom:44px;"></div>
+    <div class="org">
+
+      <!-- Top chain -->
+      <div class="org-node org-node--root">
+        <div class="org-node-role">Corporate Management Exec Officer</div>
+        <div class="org-node-name">Mr. Alyasa Gan</div>
+        <div class="org-node-dept">CMD</div>
+      </div>
+      <div class="org-vline"></div>
+      <div class="org-node org-node--main">
+        <div class="org-node-role">Managing Director</div>
+        <div class="org-node-name">Mr. Albert Lim</div>
+      </div>
+      <div class="org-vline"></div>
+      <div class="org-node org-node--sub">
+        <div class="org-node-role">Deputy Managing Director</div>
+        <div class="org-node-name">Mr. Timmy Ang</div>
+      </div>
+      <div class="org-vline"></div>
+      <div class="org-node org-node--main">
+        <div class="org-node-role">Chief Operation Officer</div>
+        <div class="org-node-name">Pn. Hasnida</div>
+      </div>
+
+      <!-- Vertical drop to horizontal bar -->
+      <div class="org-vline"></div>
+
+      <!-- Horizontal spread -->
+      <div class="org-spread">
+        <div class="org-hbar-wrap">
+          <div class="org-hbar"></div>
+        </div>
+        <div class="org-dept-row">
+          <div class="org-dept-col">
+            <div class="org-dept-drop"></div>
+            <div class="org-card">
+              <div class="org-card-dept">Account / HR</div>
+              <div class="org-card-name">Pn. Haslina</div>
+            </div>
+          </div>
+          <div class="org-dept-col">
+            <div class="org-dept-drop"></div>
+            <div class="org-card">
+              <div class="org-card-dept">Purchasing / PPC</div>
+              <div class="org-card-name">Pn. Rozilawati</div>
+            </div>
+          </div>
+          <div class="org-dept-col">
+            <div class="org-dept-drop"></div>
+            <div class="org-card">
+              <div class="org-card-dept">Sales / Marketing</div>
+              <div class="org-card-name">Mr. Amin</div>
+            </div>
+          </div>
+          <div class="org-dept-col">
+            <div class="org-dept-drop"></div>
+            <div class="org-card">
+              <div class="org-card-dept">QA / QC</div>
+              <div class="org-card-name">Mr. Fahmi</div>
+            </div>
+          </div>
+          <div class="org-dept-col">
+            <div class="org-dept-drop"></div>
+            <div class="org-card">
+              <div class="org-card-dept">Warehouse</div>
+              <div class="org-card-name">Mr. Nasrul</div>
+            </div>
+          </div>
+          <div class="org-dept-col">
+            <div class="org-dept-drop"></div>
+            <div class="org-card">
+              <div class="org-card-dept">Production &amp; Tech</div>
+              <div class="org-card-name">Mr. Fikri</div>
+            </div>
+          </div>
+          <div class="org-dept-col">
+            <div class="org-dept-drop"></div>
+            <div class="org-card">
+              <div class="org-card-dept">Maintenance</div>
+              <div class="org-card-name">Mr. Ganesh</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand-row">
+        <div class="footer-logo-icon">
+          <svg viewBox="0 0 32 32" fill="none">
+            <rect x="3" y="7" width="26" height="18" rx="0" stroke="white" stroke-width="2"/>
+            <path d="M3 13h26M10 7v18M22 7v18" stroke="white" stroke-width="1.5" stroke-linecap="square"/>
+          </svg>
+        </div>
+        <div>
+          <div class="footer-co">CCSB — Compounding &amp; Colouring Sdn Bhd</div>
+          <div class="footer-sub">A subsidiary of Teck See Plastic Group / Oriental Holdings Berhad</div>
+        </div>
+      </div>
+      <p class="footer-desc">Customized polymer compounding and colouring for automotive, home appliances, E&amp;E and water system industries. Est. April 1994.</p>
+    </div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <div class="footer-col-hd">CCSB</div>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="history.html">History</a>
+        <a href="products.html">Products</a>
+        <a href="machinery.html">Machinery</a>
+        <a href="quality.html">Quality</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-hd">TSP Group</div>
+        <a href="../index.html">Group Home</a>
+        <a href="../about.html">About TSP</a>
+        <a href="../subsidiaries.html">All Subsidiaries</a>
+        <a href="../contact.html">Group Contact</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-hd">Contact CCSB</div>
+        <a href="tel:+60389254272">+603-8925 4272</a>
+        <a href="mailto:aminhusni@ccsboh.com.my">aminhusni@ccsboh.com.my</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Compounding &amp; Colouring Sdn Bhd. All rights reserved.</span>
+    <span>Part of Teck See Plastic Group</span>
+  </div>
+</footer>
+
+<script src="../main.js"></script>
+</body>
+</html>
