@@ -7,137 +7,225 @@
   <link rel="stylesheet" href="../style.css" />
   <style>
 
-    /* ── Accordion Timeline ── */
-    .ac-stack {
-      border: 1px solid var(--border);
-      border-radius: 0;
-      overflow: hidden;
+    /* ── Timeline wrap ── */
+    .tl-wrap {
+      position: relative;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px 0 60px;
     }
 
-    .ac-item {
-      border-bottom: 1px solid var(--border);
-      cursor: pointer;
+    /* Center spine */
+    .tl-wrap::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0; bottom: 0;
+      width: 2px;
+      background: var(--border);
+      transform: translateX(-1px);
+      z-index: 0;
     }
-    .ac-item:last-child { border-bottom: none; }
 
-    /* Trigger row — always visible */
-    .ac-trigger {
+    /* Each entry: 3-col grid — card | node | card */
+    .tl-entry {
+      display: grid;
+      grid-template-columns: 1fr 88px 1fr;
+      gap: 0 0;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    /* Node column — always col 2 */
+    .tl-node {
+      grid-column: 2;
       display: flex;
-      align-items: stretch;
-      user-select: none;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 0;
+      position: relative;
+      z-index: 2;
     }
 
-    .ac-year {
-      width: 110px;
-      flex-shrink: 0;
+    .tl-year-pill {
       background: var(--navy);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 15px;
-      font-weight: 900;
       color: #fff;
-      letter-spacing: -0.02em;
-      padding: 22px 0;
-      border-right: 1px solid rgba(255,255,255,0.06);
-      transition: background 0.2s;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      padding: 5px 10px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      white-space: nowrap;
+      text-align: center;
     }
-    .ac-item.open .ac-year,
-    .ac-item:hover .ac-year { background: var(--accent); }
-    .ac-year.key { background: var(--accent); }
-    .ac-item.open .ac-year.key,
-    .ac-item:hover .ac-year.key { background: #c8a000; }
+    .tl-year-pill--key { background: var(--accent); }
 
-    .ac-head {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 22px 24px;
-      gap: 16px;
+    .tl-dot {
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: var(--navy);
+      border: 3px solid #fff;
+      box-shadow: 0 0 0 2px var(--navy);
+      flex-shrink: 0;
+    }
+    .tl-dot--accent { background: var(--accent); box-shadow: 0 0 0 2px var(--accent); }
+
+    /* Card wrap — left entries use col 1, right entries use col 3 */
+    .tl-card-wrap { display: flex; align-items: flex-start; }
+    .tl-entry--l .tl-card-wrap { grid-column: 1; justify-content: flex-end; padding-right: 24px; }
+    .tl-entry--r .tl-card-wrap { grid-column: 3; justify-content: flex-start; padding-left: 24px; }
+
+
+    /* Card */
+    .tl-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      width: 100%;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .tl-card:hover {
+      box-shadow: 0 8px 28px rgba(11,32,64,0.09);
+      transform: translateY(-2px);
     }
 
-    .ac-title {
-      font-size: 14px;
+    /* Featured card (with image) */
+    .tl-card-img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      display: block;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+    .tl-card-body { padding: 16px 18px; }
+    .tl-card-title {
+      font-size: 13px;
       font-weight: 800;
       color: var(--navy);
-      line-height: 1.35;
+      line-height: 1.4;
+      margin-bottom: 7px;
     }
-
-    .ac-chevron {
-      flex-shrink: 0;
-      font-size: 18px;
+    .tl-card-desc {
+      font-size: 12px;
       color: var(--muted);
-      transition: transform 0.25s ease, color 0.2s;
-      line-height: 1;
+      line-height: 1.75;
+      margin-bottom: 10px;
     }
-    .ac-item.open .ac-chevron {
-      transform: rotate(180deg);
-      color: var(--accent);
-    }
-
-    /* Drawer — slides down on open */
-    .ac-drawer {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease;
-      background: var(--surface);
-      border-top: 0 solid var(--border);
-    }
-    .ac-item.open .ac-drawer {
-      max-height: 400px;
-      border-top: 1px solid var(--border);
-    }
-
-    .ac-body {
-      display: flex;
-      align-items: flex-start;
-      gap: 0;
-    }
-
-    .ac-drawer-indent {
-      width: 110px;
-      flex-shrink: 0;
-      background: var(--accent);
-      opacity: 0.08;
-      align-self: stretch;
-    }
-
-    .ac-content {
-      flex: 1;
-      padding: 20px 24px;
-    }
-
-    .ac-detail {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.7;
-      margin-bottom: 0;
-    }
-
-    .ac-tag {
+    .tl-tag {
       display: inline-block;
-      margin-top: 10px;
       font-size: 9px;
       font-weight: 700;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--accent);
-      background: #e6f0fb;
       padding: 3px 10px;
+      border-radius: 3px;
+      background: rgba(20,100,180,0.08);
+      color: var(--accent);
+      border: 1px solid rgba(20,100,180,0.18);
     }
-    .ac-tag.dark {
+    .tl-tag--dark { background: var(--navy); color: #fff; border-color: var(--navy); }
+
+    /* Slim card (no image) */
+    .tl-card--slim .tl-card-body { padding: 14px 16px; }
+    .tl-card--slim .tl-card-title { font-size: 12px; margin-bottom: 5px; }
+    .tl-card--slim .tl-card-desc { font-size: 11px; margin-bottom: 8px; }
+
+    /* ── Mobile Year Nav FAB ── */
+    .yr-fab {
+      position: fixed;
+      bottom: 24px;
+      right: 20px;
+      z-index: 200;
+      display: none;
+    }
+    .yr-fab-btn {
+      width: 52px; height: 52px;
+      border-radius: 50%;
       background: var(--navy);
       color: #fff;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 18px rgba(11,32,64,0.3);
+      font-size: 22px;
+      line-height: 1;
     }
+    .yr-panel {
+      position: absolute;
+      bottom: 60px;
+      right: 0;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(11,32,64,0.15);
+      max-height: 55vh;
+      overflow-y: auto;
+      min-width: 150px;
+      display: none;
+    }
+    .yr-panel.open { display: block; }
+    .yr-panel-hd {
+      padding: 10px 16px 8px;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted2);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: #fff;
+    }
+    .yr-panel a {
+      display: block;
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--navy);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.15s;
+    }
+    .yr-panel a:last-child { border-bottom: none; }
+    .yr-panel a:hover { background: var(--surface); color: var(--accent); }
+    .yr-panel a.key { color: var(--accent); }
 
-    /* Responsive */
-    @media (max-width: 600px) {
-      .ac-year { width: 72px; font-size: 12px; padding: 18px 0; }
-      .ac-head  { padding: 18px 16px; }
-      .ac-content { padding: 16px; }
-      .ac-drawer-indent { width: 72px; }
-      .ac-title { font-size: 13px; }
+    /* ── Mobile ── */
+    @media (max-width: 768px) {
+      .yr-fab { display: block; }
+
+      .tl-wrap::before { left: 26px; }
+
+      .tl-entry {
+        grid-template-columns: 52px 1fr;
+        margin-bottom: 28px;
+      }
+
+      .tl-node {
+        grid-column: 1;
+        grid-row: 1;
+        padding-top: 0;
+      }
+      .tl-year-pill { font-size: 8px; padding: 4px 6px; }
+      .tl-dot { width: 13px; height: 13px; }
+
+      .tl-entry--l .tl-card-wrap,
+      .tl-entry--r .tl-card-wrap {
+        grid-column: 2;
+        grid-row: 1;
+        padding-left: 14px;
+        padding-right: 0;
+        justify-content: flex-start;
+      }
+
+      .tl-entry--l .tl-node::after,
+      .tl-entry--r .tl-node::after { display: none; }
+
+      .tl-card-img { height: 140px; }
     }
 
   </style>
@@ -149,10 +237,7 @@
   <div class="topbar-inner">
     <div class="topbar-brand">
       <div class="topbar-logo">
-        <svg viewBox="0 0 32 32" fill="none">
-          <rect x="3" y="7" width="26" height="18" rx="0" stroke="white" stroke-width="2"/>
-          <path d="M3 13h26M10 7v18M22 7v18" stroke="white" stroke-width="1.5" stroke-linecap="square"/>
-        </svg>
+        <img src="assets/ccsb-logo.png" alt="CCSB Logo" style="width:52px;height:52px;object-fit:contain;display:block;" />
       </div>
       <div>
         <div class="topbar-co">Compounding &amp; Colouring Sdn Bhd (CCSB)</div>
@@ -218,435 +303,407 @@
   </div>
 </div>
 
-<!-- TIMELINE ACCORDION -->
+<!-- TIMELINE -->
 <div class="section surface">
   <div class="container">
-    <div class="ac-stack">
+    <div class="tl-wrap">
 
-      <!-- 1994 -->
-      <div class="ac-item" onclick="toggleAc(this)">
-        <div class="ac-trigger">
-          <div class="ac-year key">1994</div>
-          <div class="ac-head">
-            <div class="ac-title">CCSB Established</div>
-            <div class="ac-chevron">&#8964;</div>
-          </div>
+      <!-- 1994 — KEY -->
+      <div class="tl-entry tl-entry--r" id="y1994">
+        <div class="tl-node">
+          <div class="tl-year-pill tl-year-pill--key">1994</div>
+          <div class="tl-dot tl-dot--accent"></div>
         </div>
-        <div class="ac-drawer">
-          <div class="ac-body">
-            <div class="ac-drawer-indent"></div>
-            <div class="ac-content">
-              <div class="ac-detail">Founded under Teck See Group / Oriental Holdings Berhad with technical assistance from Mitsubishi Chemical and Japan Polychem Corporation. Established to supply customised polymer compounds for the growing Malaysian automotive industry under the Proton programme.</div>
-              <span class="ac-tag dark">Key Milestone</span>
+        <div class="tl-card-wrap">
+          <div class="tl-card tl-card--slim">
+            <div class="tl-card-body">
+              <div class="tl-card-title">CCSB Established</div>
+              <div class="tl-card-desc">Founded under Teck See Group / Oriental Holdings Berhad with technical assistance from Mitsubishi Chemical and Japan Polychem Corporation. Set up to supply customised polymer compounds for Malaysia's growing automotive industry under the Proton programme.</div>
+              <span class="tl-tag tl-tag--dark">Key Milestone</span>
             </div>
           </div>
         </div>
       </div>
 
       <!-- 1995 -->
-      <div class="ac-item" onclick="toggleAc(this)">
-        <div class="ac-trigger">
-          <div class="ac-year">1995</div>
-          <div class="ac-head">
-            <div class="ac-title">First Automotive Supply — Proton Wira &amp; Iswara Bumper</div>
-            <div class="ac-chevron">&#8964;</div>
-          </div>
+      <div class="tl-entry tl-entry--l" id="y1995">
+        <div class="tl-node">
+          <div class="tl-year-pill">1995</div>
+          <div class="tl-dot"></div>
         </div>
-        <div class="ac-drawer">
-          <div class="ac-body">
-            <div class="ac-drawer-indent"></div>
-            <div class="ac-content">
-              <div class="ac-detail">CCSB's first commercial compound supply to Hicom Teck See for the Proton Wira and Iswara bumper programme — marking CCSB's entry into the national automotive supply chain.</div>
-              <span class="ac-tag">Customer: Hicom Teck See</span>
+        <div class="tl-card-wrap">
+          <div class="tl-card tl-card--slim">
+            <div class="tl-card-body">
+              <div class="tl-card-title">First Automotive Supply — Proton Wira &amp; Iswara Bumper</div>
+              <div class="tl-card-desc">CCSB's first commercial compound supply to Hicom Teck See for the Proton Wira and Iswara bumper programme.</div>
+              <span class="tl-tag">Customer: Hicom Teck See</span>
             </div>
           </div>
         </div>
       </div>
 
       <!-- 2001 -->
-      <div class="ac-item" onclick="toggleAc(this)">
-        <div class="ac-trigger">
-          <div class="ac-year">2001</div>
-          <div class="ac-head">
-            <div class="ac-title">Perodua Kelisa Bumper</div>
-            <div class="ac-chevron">&#8964;</div>
-          </div>
+      <div class="tl-entry tl-entry--r" id="y2001">
+        <div class="tl-node">
+          <div class="tl-year-pill">2001</div>
+          <div class="tl-dot"></div>
         </div>
-        <div class="ac-drawer">
-          <div class="ac-body">
-            <div class="ac-drawer-indent"></div>
-            <div class="ac-content">
-              <div class="ac-detail">Expanded into the Perodua supply chain through the Kelisa bumper programme with Ace Polymer — broadening CCSB's customer base beyond Proton.</div>
-              <span class="ac-tag">Customer: Ace Polymer</span>
+        <div class="tl-card-wrap">
+          <div class="tl-card tl-card--slim">
+            <div class="tl-card-body">
+              <div class="tl-card-title">Perodua Kelisa Bumper</div>
+              <div class="tl-card-desc">Expanded into the Perodua supply chain through the Kelisa bumper programme with Ace Polymer — broadening CCSB's customer base beyond Proton.</div>
+              <span class="tl-tag">Customer: Ace Polymer</span>
             </div>
           </div>
         </div>
       </div>
 
       <!-- 2004 -->
-      <div class="ac-item" onclick="toggleAc(this)">
-        <div class="ac-trigger">
-          <div class="ac-year">2004</div>
-          <div class="ac-head">
-            <div class="ac-title">Proton Waja Bumper</div>
-            <div class="ac-chevron">&#8964;</div>
-          </div>
+      <div class="tl-entry tl-entry--l" id="y2004">
+        <div class="tl-node">
+          <div class="tl-year-pill">2004</div>
+          <div class="tl-dot"></div>
         </div>
-        <div class="ac-drawer">
-          <div class="ac-body">
-            <div class="ac-drawer-indent"></div>
-            <div class="ac-content">
-              <div class="ac-detail">Secured compound supply for the Proton Waja bumper programme, reinforcing CCSB's position as a trusted compound supplier within the Hicom Teck See supply chain.</div>
-              <span class="ac-tag">Customer: Hicom Teck See</span>
+        <div class="tl-card-wrap">
+          <div class="tl-card tl-card--slim">
+            <div class="tl-card-body">
+              <div class="tl-card-title">Proton Waja Bumper</div>
+              <div class="tl-card-desc">Secured compound supply for the Proton Waja bumper programme, reinforcing CCSB's position within the Hicom Teck See supply chain.</div>
+              <span class="tl-tag">Customer: Hicom Teck See</span>
             </div>
           </div>
         </div>
       </div>
 
       <!-- 2005 -->
-      <div class="ac-item" onclick="toggleAc(this)">
-        <div class="ac-trigger">
-          <div class="ac-year">2005</div>
-          <div class="ac-head">
-            <div class="ac-title">Perodua Myvi Door Trim</div>
-            <div class="ac-chevron">&#8964;</div>
-          </div>
+      <div class="tl-entry tl-entry--r" id="y2005">
+        <div class="tl-node">
+          <div class="tl-year-pill">2005</div>
+          <div class="tl-dot"></div>
         </div>
-        <div class="ac-drawer">
-          <div class="ac-body">
-            <div class="ac-drawer-indent"></div>
-            <div class="ac-content">
-              <div class="ac-detail">First door trim compound programme — the Perodua Myvi (FL) door trim supply via Hicom Teck See. Marked CCSB's expansion from exterior bumper compounds into interior trim applications.</div>
-              <span class="ac-tag">Customer: Hicom Teck See</span>
+        <div class="tl-card-wrap">
+          <div class="tl-card tl-card--slim">
+            <div class="tl-card-body">
+              <div class="tl-card-title">Perodua Myvi Door Trim</div>
+              <div class="tl-card-desc">First door trim compound programme — marking CCSB's expansion from exterior bumper compounds into interior trim applications.</div>
+              <span class="tl-tag">Customer: Hicom Teck See</span>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 2006 -->
-      <div class="ac-item" onclick="toggleAc(this)">
-        <div class="ac-trigger">
-          <div class="ac-year">2006</div>
-          <div class="ac-head">
-            <div class="ac-title">Proton Satria IP &amp; Naza Ria Bumper</div>
-            <div class="ac-chevron">&#8964;</div>
-          </div>
+      <!-- 2006 — IMAGE -->
+      <div class="tl-entry tl-entry--l" id="y2006">
+        <div class="tl-node">
+          <div class="tl-year-pill">2006</div>
+          <div class="tl-dot"></div>
         </div>
-        <div class="ac-drawer">
-          <div class="ac-body">
-            <div class="ac-drawer-indent"></div>
-            <div class="ac-content">
-              <div class="ac-detail">Added instrument panel (IP) compound to CCSB's product range through the Proton Satria programme with AHP, alongside bumper compound supply for the Naza Ria via TSP (SA). First IP programme milestone.</div>
-              <span class="ac-tag">Customers: AHP / TSP (SA)</span>
+        <div class="tl-card-wrap">
+          <div class="tl-card">
+            <img src="assets/history/2006.png" alt="2006 — Proton Satria IP" class="tl-card-img" />
+            <div class="tl-card-body">
+              <div class="tl-card-title">Proton Satria IP &amp; Naza Ria Bumper</div>
+              <div class="tl-card-desc">Added instrument panel (IP) compound to CCSB's product range through the Proton Satria programme with AHP, alongside bumper supply for the Naza Ria via TSP (SA). First IP programme milestone.</div>
+              <span class="tl-tag">Customers: AHP / TSP (SA)</span>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 2007 -->
-      <div class="ac-item" onclick="toggleAc(this)">
-        <div class="ac-trigger">
-          <div class="ac-year">2007</div>
-          <div class="ac-head">
-            <div class="ac-title">Perodua MYVI FL &amp; VIVA SE — Bumper &amp; Door Trim</div>
-            <div class="ac-chevron">&#8964;</div>
-          </div>
+      <!-- 2007 — IMAGE -->
+      <div class="tl-entry tl-entry--r" id="y2007">
+        <div class="tl-node">
+          <div class="tl-year-pill">2007</div>
+          <div class="tl-dot"></div>
         </div>
-        <div class="ac-drawer">
-          <div class="ac-body">
-            <div class="ac-drawer-indent"></div>
-            <div class="ac-content">
-              <div class="ac-detail">Compound supply for Perodua MYVI FL bumper and door trim, and Perodua VIVA SE bumper programmes through HTS and Permintex — strengthening presence across multiple Perodua platforms simultaneously.</div>
-              <span class="ac-tag">Customers: HTS / Permintex</span>
+        <div class="tl-card-wrap">
+          <div class="tl-card">
+            <img src="assets/history/2007.png" alt="2007 — Perodua MYVI" class="tl-card-img" />
+            <div class="tl-card-body">
+              <div class="tl-card-title">Perodua MYVI FL &amp; VIVA SE — Bumper &amp; Door Trim</div>
+              <div class="tl-card-desc">Compound supply for Perodua MYVI FL bumper and door trim, and Perodua VIVA SE bumper programmes through HTS and Permintex.</div>
+              <span class="tl-tag">Customers: HTS / Permintex</span>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 2009 -->
-      <div class="ac-item" onclick="toggleAc(this)">
-        <div class="ac-trigger">
-          <div class="ac-year">2009</div>
-          <div class="ac-head">
-            <div class="ac-title">Perodua Nautica Bumper &amp; D20N IP &amp; Child Part</div>
-            <div class="ac-chevron">&#8964;</div>
-          </div>
+      <!-- 2009 — IMAGE -->
+      <div class="tl-entry tl-entry--l" id="y2009">
+        <div class="tl-node">
+          <div class="tl-year-pill">2009</div>
+          <div class="tl-dot"></div>
         </div>
-        <div class="ac-drawer">
-          <div class="ac-body">
-            <div class="ac-drawer-indent"></div>
-            <div class="ac-content">
-              <div class="ac-detail">Perodua Nautica bumper compound supply via Hicom Teck See, and IP &amp; child part programmes for Perodua D20N through Permintex — expanding IP compound capabilities further into the Perodua platform.</div>
-              <span class="ac-tag">Customers: Hicom Teck See / Permintex</span>
+        <div class="tl-card-wrap">
+          <div class="tl-card">
+            <img src="assets/history/2009.png" alt="2009 — Perodua Nautica" class="tl-card-img" />
+            <div class="tl-card-body">
+              <div class="tl-card-title">Perodua Nautica Bumper &amp; D20N IP &amp; Child Part</div>
+              <div class="tl-card-desc">Perodua Nautica bumper via Hicom Teck See, and IP &amp; child part programmes for Perodua D20N through Permintex — expanding IP compound capabilities further into the Perodua platform.</div>
+              <span class="tl-tag">Customers: Hicom Teck See / Permintex</span>
             </div>
           </div>
         </div>
       </div>
 
       <!-- 2010 -->
-      <div class="ac-item" onclick="toggleAc(this)">
-        <div class="ac-trigger">
-          <div class="ac-year">2010</div>
-          <div class="ac-head">
-            <div class="ac-title">Perodua Alza Bumper &amp; Proton Exora Bumper</div>
-            <div class="ac-chevron">&#8964;</div>
-          </div>
+      <div class="tl-entry tl-entry--r" id="y2010">
+        <div class="tl-node">
+          <div class="tl-year-pill">2010</div>
+          <div class="tl-dot"></div>
         </div>
-        <div class="ac-drawer">
-          <div class="ac-body">
-            <div class="ac-drawer-indent"></div>
-            <div class="ac-content">
-              <div class="ac-detail">Compound supply for Perodua Alza bumper via Hicom Teck See and Proton Exora bumper through TSP (SA). Multi-platform, multi-customer expansion solidifying CCSB's role as a core compound supplier across Malaysia's national car brands.</div>
-              <span class="ac-tag">Customers: Hicom Teck See / TSP (SA)</span>
+        <div class="tl-card-wrap">
+          <div class="tl-card tl-card--slim">
+            <div class="tl-card-body">
+              <div class="tl-card-title">Perodua Alza Bumper &amp; Proton Exora Bumper</div>
+              <div class="tl-card-desc">Multi-platform, multi-customer expansion — Perodua Alza via Hicom Teck See and Proton Exora bumper through TSP (SA).</div>
+              <span class="tl-tag">Customers: Hicom Teck See / TSP (SA)</span>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 2012 -->
-      <div class="ac-item" onclick="toggleAc(this)">
-        <div class="ac-trigger">
-          <div class="ac-year">2012</div>
-          <div class="ac-head">
-            <div class="ac-title">Proton Preve Door &amp; Pillar Trim; Toyota Vios Bumper Grille</div>
-            <div class="ac-chevron">&#8964;</div>
-          </div>
+      <!-- 2012 — IMAGE -->
+      <div class="tl-entry tl-entry--l" id="y2012">
+        <div class="tl-node">
+          <div class="tl-year-pill">2012</div>
+          <div class="tl-dot"></div>
         </div>
-        <div class="ac-drawer">
-          <div class="ac-body">
-            <div class="ac-drawer-indent"></div>
-            <div class="ac-content">
-              <div class="ac-detail">Door and pillar trim compound for the Proton Preve via Delloyd, and bumper grille compound for the Toyota Vios via AHP — CCSB's first supply into the non-national Japanese automotive segment.</div>
-              <span class="ac-tag">Customers: Delloyd / AHP</span>
+        <div class="tl-card-wrap">
+          <div class="tl-card">
+            <img src="assets/history/2012.png" alt="2012 — Toyota Vios" class="tl-card-img" />
+            <div class="tl-card-body">
+              <div class="tl-card-title">Proton Preve Door &amp; Pillar Trim; Toyota Vios Bumper Grille</div>
+              <div class="tl-card-desc">Door and pillar trim for the Proton Preve via Delloyd, and bumper grille for the Toyota Vios via AHP — CCSB's first supply into the Japanese automotive segment.</div>
+              <span class="tl-tag">Customers: Delloyd / AHP</span>
             </div>
           </div>
         </div>
       </div>
 
       <!-- 2013 -->
-      <div class="ac-item" onclick="toggleAc(this)">
-        <div class="ac-trigger">
-          <div class="ac-year">2013</div>
-          <div class="ac-head">
-            <div class="ac-title">Proton Iriz Door &amp; Pillar Trim</div>
-            <div class="ac-chevron">&#8964;</div>
-          </div>
+      <div class="tl-entry tl-entry--r" id="y2013">
+        <div class="tl-node">
+          <div class="tl-year-pill">2013</div>
+          <div class="tl-dot"></div>
         </div>
-        <div class="ac-drawer">
-          <div class="ac-body">
-            <div class="ac-drawer-indent"></div>
-            <div class="ac-content">
-              <div class="ac-detail">Door and pillar trim compound supply for the Proton Iriz via Delloyd — continued growth in the interior trim segment alongside bumper programmes.</div>
-              <span class="ac-tag">Customer: Delloyd</span>
+        <div class="tl-card-wrap">
+          <div class="tl-card tl-card--slim">
+            <div class="tl-card-body">
+              <div class="tl-card-title">Proton Iriz Door &amp; Pillar Trim</div>
+              <div class="tl-card-desc">Door and pillar trim compound supply for the Proton Iriz via Delloyd — continued growth in the interior trim segment.</div>
+              <span class="tl-tag">Customer: Delloyd</span>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 2015 -->
-      <div class="ac-item" onclick="toggleAc(this)">
-        <div class="ac-trigger">
-          <div class="ac-year">2015</div>
-          <div class="ac-head">
-            <div class="ac-title">Proton New Perdana Bumper &amp; Door Trim; Proton Persona &amp; Saga Door Trim</div>
-            <div class="ac-chevron">&#8964;</div>
-          </div>
+      <!-- 2015 — IMAGE -->
+      <div class="tl-entry tl-entry--l" id="y2015">
+        <div class="tl-node">
+          <div class="tl-year-pill">2015</div>
+          <div class="tl-dot"></div>
         </div>
-        <div class="ac-drawer">
-          <div class="ac-body">
-            <div class="ac-drawer-indent"></div>
-            <div class="ac-content">
-              <div class="ac-detail">Bumper and door trim compound for the Proton New Perdana via KTSM, and door trim compound for Proton Persona and Saga programmes through Delloyd — multiple Proton platforms served simultaneously.</div>
-              <span class="ac-tag">Customers: KTSM / Delloyd</span>
+        <div class="tl-card-wrap">
+          <div class="tl-card">
+            <img src="assets/history/2015.png" alt="2015 — Proton Perdana" class="tl-card-img" />
+            <div class="tl-card-body">
+              <div class="tl-card-title">Proton New Perdana Bumper &amp; Door Trim; Proton Persona &amp; Saga Door Trim</div>
+              <div class="tl-card-desc">Bumper and door trim for the Proton New Perdana via KTSM, and door trim for Proton Persona and Saga through Delloyd — multiple Proton platforms served simultaneously.</div>
+              <span class="tl-tag">Customers: KTSM / Delloyd</span>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 2016 -->
-      <div class="ac-item" onclick="toggleAc(this)">
-        <div class="ac-trigger">
-          <div class="ac-year">2016</div>
-          <div class="ac-head">
-            <div class="ac-title">Perodua Bezza Door Trim &amp; IP Child Part</div>
-            <div class="ac-chevron">&#8964;</div>
-          </div>
+      <!-- 2016 — IMAGE -->
+      <div class="tl-entry tl-entry--r" id="y2016">
+        <div class="tl-node">
+          <div class="tl-year-pill">2016</div>
+          <div class="tl-dot"></div>
         </div>
-        <div class="ac-drawer">
-          <div class="ac-body">
-            <div class="ac-drawer-indent"></div>
-            <div class="ac-content">
-              <div class="ac-detail">Door trim compound for Perodua Bezza via KTSM, and IP child part compound through Permintex — broadening CCSB's Bezza programme coverage across both interior trim and instrument panel applications.</div>
-              <span class="ac-tag">Customers: KTSM / Permintex</span>
+        <div class="tl-card-wrap">
+          <div class="tl-card">
+            <img src="assets/history/2016.png" alt="2016 — Perodua Bezza" class="tl-card-img" />
+            <div class="tl-card-body">
+              <div class="tl-card-title">Perodua Bezza Door Trim &amp; IP Child Part</div>
+              <div class="tl-card-desc">Door trim compound for Perodua Bezza via KTSM, and IP child part compound through Permintex — covering both interior trim and instrument panel applications.</div>
+              <span class="tl-tag">Customers: KTSM / Permintex</span>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 2017 -->
-      <div class="ac-item" onclick="toggleAc(this)">
-        <div class="ac-trigger">
-          <div class="ac-year">2017</div>
-          <div class="ac-head">
-            <div class="ac-title">Perodua D20N Bumper RR &amp; D38L Door Trim</div>
-            <div class="ac-chevron">&#8964;</div>
-          </div>
+      <!-- 2017 — IMAGE -->
+      <div class="tl-entry tl-entry--l" id="y2017">
+        <div class="tl-node">
+          <div class="tl-year-pill">2017</div>
+          <div class="tl-dot"></div>
         </div>
-        <div class="ac-drawer">
-          <div class="ac-body">
-            <div class="ac-drawer-indent"></div>
-            <div class="ac-content">
-              <div class="ac-detail">Rear bumper compound for Perodua D20N via PDKM, and door trim compound for D38L via KTSM — steady expansion of PDKM-channel programmes ahead of the D38L full launch in 2018.</div>
-              <span class="ac-tag">Customers: PDKM / KTSM</span>
+        <div class="tl-card-wrap">
+          <div class="tl-card">
+            <img src="assets/history/2017.png" alt="2017 — Perodua D20N" class="tl-card-img" />
+            <div class="tl-card-body">
+              <div class="tl-card-title">Perodua D20N Bumper RR &amp; D38L Door Trim</div>
+              <div class="tl-card-desc">Rear bumper compound for Perodua D20N via PDKM, and door trim compound for D38L via KTSM — ahead of the D38L full launch in 2018.</div>
+              <span class="tl-tag">Customers: PDKM / KTSM</span>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 2018 -->
-      <div class="ac-item" onclick="toggleAc(this)">
-        <div class="ac-trigger">
-          <div class="ac-year key">2018</div>
-          <div class="ac-head">
-            <div class="ac-title">Perodua Aruz (D38L) Bumper FR/RR — IATF 16949:2016 Certified</div>
-            <div class="ac-chevron">&#8964;</div>
-          </div>
+      <!-- 2018 — KEY -->
+      <div class="tl-entry tl-entry--r" id="y2018">
+        <div class="tl-node">
+          <div class="tl-year-pill tl-year-pill--key">2018</div>
+          <div class="tl-dot tl-dot--accent"></div>
         </div>
-        <div class="ac-drawer">
-          <div class="ac-body">
-            <div class="ac-drawer-indent"></div>
-            <div class="ac-content">
-              <div class="ac-detail">Front and rear bumper compound supply for the Perodua Aruz (D38L) via PDKM. Milestone year: CCSB achieved IATF 16949:2016 certification — the automotive industry's premier quality management system standard — confirming world-class production capability.</div>
-              <span class="ac-tag dark">IATF 16949:2016 Certified</span>
+        <div class="tl-card-wrap">
+          <div class="tl-card tl-card--slim">
+            <div class="tl-card-body">
+              <div class="tl-card-title">Perodua Aruz (D38L) Bumper FR/RR — IATF 16949:2016 Certified</div>
+              <div class="tl-card-desc">Front and rear bumper compound for the Perodua Aruz via PDKM. Milestone year: CCSB achieved IATF 16949:2016 certification — the automotive industry's premier quality management system standard.</div>
+              <span class="tl-tag tl-tag--dark">IATF 16949:2016 Certified</span>
             </div>
           </div>
         </div>
       </div>
 
       <!-- 2020 -->
-      <div class="ac-item" onclick="toggleAc(this)">
-        <div class="ac-trigger">
-          <div class="ac-year">2020</div>
-          <div class="ac-head">
-            <div class="ac-title">Perodua D55L — Bumper RR/IP &amp; Interior Trim</div>
-            <div class="ac-chevron">&#8964;</div>
-          </div>
+      <div class="tl-entry tl-entry--l" id="y2020">
+        <div class="tl-node">
+          <div class="tl-year-pill">2020</div>
+          <div class="tl-dot"></div>
         </div>
-        <div class="ac-drawer">
-          <div class="ac-body">
-            <div class="ac-drawer-indent"></div>
-            <div class="ac-content">
-              <div class="ac-detail">Rear bumper and IP compound for Perodua D55L via PDKM, and interior trim compound via Hil/AHP — CCSB's most comprehensive single-platform programme to date, covering exterior, IP, and interior trim simultaneously.</div>
-              <span class="ac-tag">Customers: PDKM / Hil / AHP</span>
+        <div class="tl-card-wrap">
+          <div class="tl-card tl-card--slim">
+            <div class="tl-card-body">
+              <div class="tl-card-title">Perodua D55L — Bumper RR/IP &amp; Interior Trim</div>
+              <div class="tl-card-desc">CCSB's most comprehensive single-platform programme to date — covering exterior, IP, and interior trim simultaneously for the Perodua D55L.</div>
+              <span class="tl-tag">Customers: PDKM / Hil / AHP</span>
             </div>
           </div>
         </div>
       </div>
 
       <!-- 2021 -->
-      <div class="ac-item" onclick="toggleAc(this)">
-        <div class="ac-trigger">
-          <div class="ac-year">2021</div>
-          <div class="ac-head">
-            <div class="ac-title">Perodua D51A — Bumper Front &amp; IP</div>
-            <div class="ac-chevron">&#8964;</div>
-          </div>
+      <div class="tl-entry tl-entry--r" id="y2021">
+        <div class="tl-node">
+          <div class="tl-year-pill">2021</div>
+          <div class="tl-dot"></div>
         </div>
-        <div class="ac-drawer">
-          <div class="ac-body">
-            <div class="ac-drawer-indent"></div>
-            <div class="ac-content">
-              <div class="ac-detail">Front bumper and instrument panel compound supply for the Perodua D51A platform via PDKM — continued strengthening of the PDKM partnership across new Perodua model launches.</div>
-              <span class="ac-tag">Customer: PDKM</span>
+        <div class="tl-card-wrap">
+          <div class="tl-card tl-card--slim">
+            <div class="tl-card-body">
+              <div class="tl-card-title">Perodua D51A — Bumper Front &amp; IP</div>
+              <div class="tl-card-desc">Front bumper and instrument panel compound supply for the Perodua D51A platform via PDKM.</div>
+              <span class="tl-tag">Customer: PDKM</span>
             </div>
           </div>
         </div>
       </div>
 
       <!-- 2022 -->
-      <div class="ac-item" onclick="toggleAc(this)">
-        <div class="ac-trigger">
-          <div class="ac-year">2022</div>
-          <div class="ac-head">
-            <div class="ac-title">Perodua Alza 2022 (D27A) — Bumper Front &amp; IP</div>
-            <div class="ac-chevron">&#8964;</div>
-          </div>
+      <div class="tl-entry tl-entry--l" id="y2022">
+        <div class="tl-node">
+          <div class="tl-year-pill">2022</div>
+          <div class="tl-dot"></div>
         </div>
-        <div class="ac-drawer">
-          <div class="ac-body">
-            <div class="ac-drawer-indent"></div>
-            <div class="ac-content">
-              <div class="ac-detail">Front bumper and IP compound for the all-new Perodua Alza 2022 (D27A) via PDKM — the highest-volume Perodua MPV launch of the decade, affirming CCSB's position as a preferred compound partner for flagship models.</div>
-              <span class="ac-tag">Customer: PDKM</span>
+        <div class="tl-card-wrap">
+          <div class="tl-card tl-card--slim">
+            <div class="tl-card-body">
+              <div class="tl-card-title">Perodua Alza 2022 (D27A) — Bumper Front &amp; IP</div>
+              <div class="tl-card-desc">Front bumper and IP compound for the all-new Perodua Alza 2022 — the highest-volume Perodua MPV launch of the decade.</div>
+              <span class="tl-tag">Customer: PDKM</span>
             </div>
           </div>
         </div>
       </div>
 
       <!-- 2023 -->
-      <div class="ac-item" onclick="toggleAc(this)">
-        <div class="ac-trigger">
-          <div class="ac-year">2023</div>
-          <div class="ac-head">
-            <div class="ac-title">Perodua Axia 2023 (D74A) — Bumper, IP &amp; Door Trim</div>
-            <div class="ac-chevron">&#8964;</div>
-          </div>
+      <div class="tl-entry tl-entry--r" id="y2023">
+        <div class="tl-node">
+          <div class="tl-year-pill">2023</div>
+          <div class="tl-dot"></div>
         </div>
-        <div class="ac-drawer">
-          <div class="ac-body">
-            <div class="ac-drawer-indent"></div>
-            <div class="ac-content">
-              <div class="ac-detail">Full-platform compound supply for the new Perodua Axia (D74A) — front bumper and IP via PDKM, and door trim via KTSM. One of CCSB's broadest single-model coverages, spanning exterior, IP, and interior trim in one launch.</div>
-              <span class="ac-tag">Customers: PDKM / KTSM</span>
+        <div class="tl-card-wrap">
+          <div class="tl-card tl-card--slim">
+            <div class="tl-card-body">
+              <div class="tl-card-title">Perodua Axia 2023 (D74A) — Bumper, IP &amp; Door Trim</div>
+              <div class="tl-card-desc">Full-platform compound supply for the new Perodua Axia — front bumper and IP via PDKM, door trim via KTSM. One of CCSB's broadest single-model coverages.</div>
+              <span class="tl-tag">Customers: PDKM / KTSM</span>
             </div>
           </div>
         </div>
       </div>
 
       <!-- 2025 -->
-      <div class="ac-item" onclick="toggleAc(this)">
-        <div class="ac-trigger">
-          <div class="ac-year">2025</div>
-          <div class="ac-head">
-            <div class="ac-title">Perodua D66B — Bumper Front, IP &amp; Door Trim</div>
-            <div class="ac-chevron">&#8964;</div>
-          </div>
+      <div class="tl-entry tl-entry--l" id="y2025">
+        <div class="tl-node">
+          <div class="tl-year-pill">2025</div>
+          <div class="tl-dot"></div>
         </div>
-        <div class="ac-drawer">
-          <div class="ac-body">
-            <div class="ac-drawer-indent"></div>
-            <div class="ac-content">
-              <div class="ac-detail">Latest Perodua D66B platform — front bumper, IP and door trim compound supply via PDKM and KTSM. Ongoing active programme as of 2025, continuing CCSB's unbroken run as a Perodua compound partner across successive model generations.</div>
-              <span class="ac-tag">Customers: PDKM / KTSM</span>
+        <div class="tl-card-wrap">
+          <div class="tl-card tl-card--slim">
+            <div class="tl-card-body">
+              <div class="tl-card-title">Perodua D66B — Bumper Front, IP &amp; Door Trim</div>
+              <div class="tl-card-desc">Latest Perodua D66B platform — front bumper, IP and door trim via PDKM and KTSM. Ongoing active programme as of 2025.</div>
+              <span class="tl-tag">Customers: PDKM / KTSM</span>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 2026+ -->
-      <div class="ac-item" onclick="toggleAc(this)">
-        <div class="ac-trigger">
-          <div class="ac-year key">2026 →</div>
-          <div class="ac-head">
-            <div class="ac-title">Supplier of Choice — Compound, Trading &amp; Services</div>
-            <div class="ac-chevron">&#8964;</div>
-          </div>
+      <!-- 2026+ — KEY -->
+      <div class="tl-entry tl-entry--r" id="y2026">
+        <div class="tl-node">
+          <div class="tl-year-pill tl-year-pill--key">2026 →</div>
+          <div class="tl-dot tl-dot--accent"></div>
         </div>
-        <div class="ac-drawer">
-          <div class="ac-body">
-            <div class="ac-drawer-indent"></div>
-            <div class="ac-content">
-              <div class="ac-detail">CCSB's strategic vision from 2026 onwards: to be the Supplier of Choice in Compound, Trading and Services — expanding capabilities beyond automotive into broader industrial sectors while deepening existing partnerships with Tier 1 customers across Malaysia.</div>
-              <span class="ac-tag dark">2026 Vision</span>
+        <div class="tl-card-wrap">
+          <div class="tl-card tl-card--slim">
+            <div class="tl-card-body">
+              <div class="tl-card-title">Supplier of Choice — Compound, Trading &amp; Services</div>
+              <div class="tl-card-desc">CCSB's strategic vision: to be the Supplier of Choice in Compound, Trading and Services — expanding beyond automotive into broader industrial sectors while deepening existing Tier 1 partnerships.</div>
+              <span class="tl-tag tl-tag--dark">2026 Vision</span>
             </div>
           </div>
         </div>
       </div>
 
-    </div><!-- /.ac-stack -->
+    </div><!-- /.tl-wrap -->
   </div>
 </div>
 
+<!-- MOBILE YEAR NAV FAB -->
+<div class="yr-fab" id="yr-fab">
+  <div class="yr-panel" id="yr-panel">
+    <div class="yr-panel-hd">Jump to Year</div>
+    <a href="#y1994" class="key" onclick="closeYrPanel()">1994</a>
+    <a href="#y1995" onclick="closeYrPanel()">1995</a>
+    <a href="#y2001" onclick="closeYrPanel()">2001</a>
+    <a href="#y2004" onclick="closeYrPanel()">2004</a>
+    <a href="#y2005" onclick="closeYrPanel()">2005</a>
+    <a href="#y2006" onclick="closeYrPanel()">2006</a>
+    <a href="#y2007" onclick="closeYrPanel()">2007</a>
+    <a href="#y2009" onclick="closeYrPanel()">2009</a>
+    <a href="#y2010" onclick="closeYrPanel()">2010</a>
+    <a href="#y2012" onclick="closeYrPanel()">2012</a>
+    <a href="#y2013" onclick="closeYrPanel()">2013</a>
+    <a href="#y2015" onclick="closeYrPanel()">2015</a>
+    <a href="#y2016" onclick="closeYrPanel()">2016</a>
+    <a href="#y2017" onclick="closeYrPanel()">2017</a>
+    <a href="#y2018" class="key" onclick="closeYrPanel()">2018</a>
+    <a href="#y2020" onclick="closeYrPanel()">2020</a>
+    <a href="#y2021" onclick="closeYrPanel()">2021</a>
+    <a href="#y2022" onclick="closeYrPanel()">2022</a>
+    <a href="#y2023" onclick="closeYrPanel()">2023</a>
+    <a href="#y2025" onclick="closeYrPanel()">2025</a>
+    <a href="#y2026" class="key" onclick="closeYrPanel()">2026 →</a>
+  </div>
+  <button class="yr-fab-btn" onclick="toggleYrPanel()" aria-label="Jump to year">&#9776;</button>
+</div>
 
 <!-- FOOTER -->
 <footer>
@@ -654,10 +711,7 @@
     <div>
       <div class="footer-brand-row">
         <div class="footer-logo-icon">
-          <svg viewBox="0 0 32 32" fill="none">
-            <rect x="3" y="7" width="26" height="18" rx="0" stroke="white" stroke-width="2"/>
-            <path d="M3 13h26M10 7v18M22 7v18" stroke="white" stroke-width="1.5" stroke-linecap="square"/>
-          </svg>
+          <img src="assets/ccsb-logo.png" alt="CCSB Logo" style="width:52px;height:52px;object-fit:contain;display:block;" />
         </div>
         <div>
           <div class="footer-co">CCSB — Compounding &amp; Colouring Sdn Bhd</div>
@@ -699,11 +753,16 @@
 
 <script src="../main.js"></script>
 <script>
-  function toggleAc(el) {
-    const isOpen = el.classList.contains('open');
-    document.querySelectorAll('.ac-item.open').forEach(i => i.classList.remove('open'));
-    if (!isOpen) el.classList.add('open');
+  function toggleYrPanel() {
+    document.getElementById('yr-panel').classList.toggle('open');
   }
+  function closeYrPanel() {
+    document.getElementById('yr-panel').classList.remove('open');
+  }
+  document.addEventListener('click', function(e) {
+    const fab = document.getElementById('yr-fab');
+    if (!fab.contains(e.target)) closeYrPanel();
+  });
 </script>
 </body>
 </html>

@@ -9,13 +9,26 @@
     /* ── Org Chart ── */
     .org { display: flex; flex-direction: column; align-items: center; }
     .org-vline { width: 2px; height: 28px; background: var(--border); flex-shrink: 0; }
-    .org-node { padding: 14px 40px; text-align: center; min-width: 300px; }
+    .org-node { padding: 20px 48px; text-align: center; min-width: 300px; display: flex; flex-direction: column; align-items: center; }
     .org-node--root { background: var(--navy); }
     .org-node--main { background: var(--accent); }
     .org-node--sub  { background: #1254a0; }
-    .org-node-role  { font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 4px; }
+    .org-node-role  { font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 6px; }
     .org-node-name  { font-size: 14px; font-weight: 800; color: #fff; line-height: 1.3; }
     .org-node-dept  { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 3px; }
+    .org-node-photo {
+      width: 80px; height: 80px; border-radius: 50%;
+      object-fit: cover; object-position: center top;
+      border: 3px solid rgba(255,255,255,0.25);
+      margin-bottom: 14px; display: block;
+    }
+    .org-node-photo--placeholder {
+      width: 80px; height: 80px; border-radius: 50%;
+      background: rgba(255,255,255,0.1); border: 3px solid rgba(255,255,255,0.15);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 14px; flex-shrink: 0;
+    }
+    .org-node-photo--placeholder svg { opacity: 0.3; }
 
     /* Horizontal spread connector */
     .org-spread { width: 100%; display: flex; flex-direction: column; align-items: center; }
@@ -23,18 +36,34 @@
     .org-hbar { position: absolute; top: 0; left: calc(100% / 14); right: calc(100% / 14); height: 2px; background: var(--border); }
 
     /* Dept cards row */
-    .org-dept-row { display: flex; width: 100%; gap: 8px; }
+    .org-dept-row { display: flex; width: 100%; gap: 10px; }
     .org-dept-col { flex: 1; display: flex; flex-direction: column; align-items: center; }
     .org-dept-drop { width: 2px; height: 24px; background: var(--border); flex-shrink: 0; }
-    .org-card { width: 100%; border: 1px solid var(--border); padding: 14px 8px; text-align: center; background: #fff; }
+    .org-card {
+      width: 100%; border: 1px solid var(--border); padding: 18px 8px 14px;
+      text-align: center; background: #fff; border-radius: 10px;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .org-card:hover { box-shadow: 0 6px 20px rgba(11,32,64,0.09); transform: translateY(-2px); }
+    .org-card-photo {
+      width: 72px; height: 72px; border-radius: 50%;
+      object-fit: cover; object-position: center top;
+      border: 2px solid var(--border); margin: 0 auto 10px;
+      display: block; transition: border-color 0.2s;
+    }
+    .org-card:hover .org-card-photo { border-color: var(--accent); }
     .org-card-dept { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
     .org-card-name { font-size: 12px; font-weight: 800; color: var(--navy); line-height: 1.3; }
 
     @media (max-width: 900px) {
-      .org-node { min-width: 0; padding: 12px 20px; width: 100%; }
+      .org-node { min-width: 0; padding: 18px 24px; width: 100%; }
+      .org-node-photo { width: 68px; height: 68px; }
       .org-dept-row { flex-wrap: wrap; gap: 8px; }
       .org-dept-col { flex: 0 0 calc(50% - 4px); }
       .org-hbar, .org-dept-drop { display: none; }
+    }
+    @media (max-width: 480px) {
+      .org-dept-col { flex: 0 0 100%; }
     }
   </style>
 </head>
@@ -45,10 +74,7 @@
   <div class="topbar-inner">
     <div class="topbar-brand">
       <div class="topbar-logo">
-        <svg viewBox="0 0 32 32" fill="none">
-          <rect x="3" y="7" width="26" height="18" rx="0" stroke="white" stroke-width="2"/>
-          <path d="M3 13h26M10 7v18M22 7v18" stroke="white" stroke-width="1.5" stroke-linecap="square"/>
-        </svg>
+        <img src="assets/ccsb-logo.png" alt="CCSB Logo" style="width:52px;height:52px;object-fit:contain;display:block;" />
       </div>
       <div>
         <div class="topbar-co">Compounding &amp; Colouring Sdn Bhd (CCSB)</div>
@@ -161,22 +187,28 @@
 
       <!-- Top chain -->
       <div class="org-node org-node--root">
+        <div class="org-node-photo--placeholder">
+          <svg width="36" height="36" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
+        </div>
         <div class="org-node-role">Corporate Management Exec Officer</div>
         <div class="org-node-name">Mr. Alyasa Gan</div>
         <div class="org-node-dept">CMD</div>
       </div>
       <div class="org-vline"></div>
       <div class="org-node org-node--main">
+        <img src="assets/people/MD.png" alt="Mr. Albert Lim" class="org-node-photo" />
         <div class="org-node-role">Managing Director</div>
         <div class="org-node-name">Mr. Albert Lim</div>
       </div>
       <div class="org-vline"></div>
       <div class="org-node org-node--sub">
+        <img src="assets/people/DMD.png" alt="Mr. Timmy Ang" class="org-node-photo" />
         <div class="org-node-role">Deputy Managing Director</div>
         <div class="org-node-name">Mr. Timmy Ang</div>
       </div>
       <div class="org-vline"></div>
       <div class="org-node org-node--main">
+        <img src="assets/people/COO.png" alt="Pn. Hasnida" class="org-node-photo" />
         <div class="org-node-role">Chief Operation Officer</div>
         <div class="org-node-name">Pn. Hasnida</div>
       </div>
@@ -193,6 +225,7 @@
           <div class="org-dept-col">
             <div class="org-dept-drop"></div>
             <div class="org-card">
+              <img src="assets/people/Account.png" alt="Pn. Haslina" class="org-card-photo" />
               <div class="org-card-dept">Account / HR</div>
               <div class="org-card-name">Pn. Haslina</div>
             </div>
@@ -200,6 +233,7 @@
           <div class="org-dept-col">
             <div class="org-dept-drop"></div>
             <div class="org-card">
+              <img src="assets/people/PPC.png" alt="Pn. Rozilawati" class="org-card-photo" />
               <div class="org-card-dept">Purchasing / PPC</div>
               <div class="org-card-name">Pn. Rozilawati</div>
             </div>
@@ -207,6 +241,7 @@
           <div class="org-dept-col">
             <div class="org-dept-drop"></div>
             <div class="org-card">
+              <img src="assets/people/Sales.png" alt="Mr. Amin" class="org-card-photo" />
               <div class="org-card-dept">Sales / Marketing</div>
               <div class="org-card-name">Mr. Amin</div>
             </div>
@@ -214,6 +249,7 @@
           <div class="org-dept-col">
             <div class="org-dept-drop"></div>
             <div class="org-card">
+              <img src="assets/people/QAQC.png" alt="Mr. Fahmi" class="org-card-photo" />
               <div class="org-card-dept">QA / QC</div>
               <div class="org-card-name">Mr. Fahmi</div>
             </div>
@@ -221,6 +257,7 @@
           <div class="org-dept-col">
             <div class="org-dept-drop"></div>
             <div class="org-card">
+              <img src="assets/people/WHSE.png" alt="Mr. Nasrul" class="org-card-photo" />
               <div class="org-card-dept">Warehouse</div>
               <div class="org-card-name">Mr. Nasrul</div>
             </div>
@@ -228,6 +265,7 @@
           <div class="org-dept-col">
             <div class="org-dept-drop"></div>
             <div class="org-card">
+              <img src="assets/people/PROD.png" alt="Mr. Fikri" class="org-card-photo" />
               <div class="org-card-dept">Production &amp; Tech</div>
               <div class="org-card-name">Mr. Fikri</div>
             </div>
@@ -235,6 +273,7 @@
           <div class="org-dept-col">
             <div class="org-dept-drop"></div>
             <div class="org-card">
+              <img src="assets/people/MAINTENANCE.png" alt="Mr. Ganesh" class="org-card-photo" />
               <div class="org-card-dept">Maintenance</div>
               <div class="org-card-name">Mr. Ganesh</div>
             </div>
@@ -252,10 +291,7 @@
     <div>
       <div class="footer-brand-row">
         <div class="footer-logo-icon">
-          <svg viewBox="0 0 32 32" fill="none">
-            <rect x="3" y="7" width="26" height="18" rx="0" stroke="white" stroke-width="2"/>
-            <path d="M3 13h26M10 7v18M22 7v18" stroke="white" stroke-width="1.5" stroke-linecap="square"/>
-          </svg>
+          <img src="assets/ccsb-logo.png" alt="CCSB Logo" style="width:52px;height:52px;object-fit:contain;display:block;" />
         </div>
         <div>
           <div class="footer-co">CCSB — Compounding &amp; Colouring Sdn Bhd</div>

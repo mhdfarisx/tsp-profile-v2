@@ -38,8 +38,8 @@ img { display: block; max-width: 100%; }
 }
 .topbar-brand { display: flex; align-items: center; gap: 14px; }
 .topbar-logo {
-  width: 44px; height: 44px;
-  background: var(--navy);
+  width: 56px; height: 56px;
+  background: transparent;
   display: flex; align-items: center; justify-content: center; flex-shrink: 0;
 }
 .topbar-logo svg { width: 26px; height: 26px; }
@@ -426,7 +426,7 @@ footer { background: var(--navy); }
 }
 .footer-brand-row { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
 .footer-logo-icon {
-  width: 40px; height: 40px; background: rgba(255,255,255,0.07);
+  width: 52px; height: 52px; background: transparent;
   display: flex; align-items: center; justify-content: center;
 }
 .footer-logo-icon svg { width: 22px; height: 22px; }
@@ -458,6 +458,9 @@ footer { background: var(--navy); }
 @media (max-width: 1024px) {
   .topbar-contacts { gap: 0; }
   .two-col.wide { grid-template-columns: 1fr 1fr; gap: 40px; }
+  .core-grid { grid-template-columns: repeat(2,1fr) !important; }
+  .core-grid > div { border-right: none !important; border-bottom: 1px solid var(--border); }
+  .explore-grid { grid-template-columns: repeat(2,1fr) !important; }
   .segments-table thead th:nth-child(2),
   .segments-table tbody td:nth-child(2) { display: none; }
 }
@@ -467,6 +470,10 @@ footer { background: var(--navy); }
   .topbar-contacts { display: none; }
   .topbar-co { font-size: 11.5px; }
   .two-col, .two-col.wide { grid-template-columns: 1fr; gap: 28px; }
+  .banner-split { grid-template-columns: 1fr !important; }
+  .banner-split > div:last-child { min-height: 220px !important; }
+  .core-grid { grid-template-columns: repeat(2,1fr) !important; }
+  .explore-grid { grid-template-columns: repeat(2,1fr) !important; }
   .stats-bar-inner { grid-template-columns: repeat(2, 1fr); }
   .industries-grid { grid-template-columns: repeat(2, 1fr); }
   .footer-top { grid-template-columns: 1fr; gap: 32px; }
@@ -506,6 +513,9 @@ footer { background: var(--navy); }
 @media (max-width: 580px) {
   .topbar-inner, .container, .breadcrumb-inner,
   .page-banner-inner { padding-left: 18px; padding-right: 18px; }
+  .banner-split { padding-left: 18px !important; padding-right: 18px !important; }
+  .core-grid { grid-template-columns: 1fr !important; }
+  .explore-grid { grid-template-columns: 1fr !important; }
   .footer-top, .footer-bottom { padding-left: 18px; padding-right: 18px; }
 
   .hero { height: 52vh; min-height: 300px; }
