@@ -539,6 +539,8 @@ footer { background: var(--navy); }
 
   .industries-grid { grid-template-columns: 1fr; }
   .footer-cols { grid-template-columns: 1fr; }
+  .grid-2col, .grid-3col, .grid-1-2, .grid-cert { grid-template-columns: 1fr !important; }
+  .grid-1-2 > div:first-child { border-bottom: 1px solid rgba(255,255,255,0.1); }
   .footer-top { padding-top: 36px; }
   .footer-bottom { flex-direction: column; gap: 6px; text-align: center; }
   .section { padding: 48px 0; }
