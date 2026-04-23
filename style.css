@@ -453,6 +453,14 @@ footer { background: var(--navy); }
 }
 
 /* ══════════════════════════════════════
+   UTILITY GRIDS
+══════════════════════════════════════ */
+.grid-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.grid-3col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+.grid-1-2  { display: grid; grid-template-columns: 1fr 2fr; gap: 0; }
+.grid-cert { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; }
+
+/* ══════════════════════════════════════
    RESPONSIVE
 ══════════════════════════════════════ */
 @media (max-width: 1024px) {
@@ -478,6 +486,8 @@ footer { background: var(--navy); }
   .industries-grid { grid-template-columns: repeat(2, 1fr); }
   .footer-top { grid-template-columns: 1fr; gap: 32px; }
   .footer-cols { grid-template-columns: repeat(2, 1fr); }
+  .grid-2col, .grid-3col, .grid-1-2, .grid-cert { grid-template-columns: 1fr; }
+  .grid-2col { gap: 24px; }
 
   /* Collapse desktop nav, show hamburger */
   .nav-inner { display: none; justify-content: flex-start; }
