@@ -142,7 +142,7 @@ nav {
   position: absolute; inset: 0;
   background-size: cover; background-position: center;
 }
-.slide-tsp    { background: url('../ccsb-profile/tspb.jpg') center / cover no-repeat; }
+.slide-tsp    { background: url('assets/tspb.jpg') center / cover no-repeat; }
 .slide-ccsb   { background-color: #0d2744; }
 .slide-lipro  { background-color: #0a2035; }
 .slide-on     { background-color: #10263e; }
